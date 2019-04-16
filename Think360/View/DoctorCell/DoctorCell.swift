@@ -173,35 +173,23 @@ class DoctorCell:UITableViewCell{
     }
     
     func loadDatainCell(doctorData:CellData){
-        if doctorData.photo != ""{
-            profileImage.loadImageUsingURLString(urlString: doctorData.photo)
-        }else{
-            profileImage.image = UIImage(named: "default")
-            
-        }
-        doctorName.text = doctorData.fullname
-        if !doctorData.degree.isEmpty{
-            doctorDegree.text = doctorData.degree.joined(separator: ",")
-        }
-        if !doctorData.specialization.isEmpty{
-            doctorSpecialization.text = "\(doctorData.specialization.joined(separator: ","))"
-        }else{
-            doctorDegree.text = ""
-        }
-        if doctorData.specialization.isEmpty && doctorData.degree.isEmpty{
-            doctorDegree.text = "Not Mentioned"
-        }
-        if doctorData.officeName != ""{
-            doctorOfficeName.text = doctorData.officeName
-        }else{
-            doctorOfficeName.text = "Not Mentioned"
-        }
         
-        if doctorData.city != "" && doctorData.stateCode != "" && doctorData.zip != ""{
-            doctoraddress.text = "\(doctorData.city), \(doctorData.stateCode), \(doctorData.zip)"
-        }else{
-            doctoraddress.text = "Not Mentioned"
-        }
+        //Load Profile Image
+        doctorData.photo != "" ? profileImage.loadImageUsingURLString(urlString: doctorData.photo) : (profileImage.image = UIImage(named: "default"))
+        //FullName
+        doctorName.text = doctorData.fullname
+        
+        //Doctor Degree
+        !doctorData.degree.isEmpty ? (doctorDegree.text = doctorData.degree.joined(separator: ", ")) : (doctorDegree.text = "")
+        
+        //Doctor Specialization
+        !doctorData.specialization.isEmpty ? (doctorSpecialization.text = "\(doctorData.specialization.joined(separator: ","))") : (doctorSpecialization.text = "Not Mentioned")
+        
+        //Doctor Office
+        doctorData.officeName != "" ? (doctorOfficeName.text = doctorData.officeName) : (doctorOfficeName.text = "Not Mentioned")
+        
+        //Doctor Office Address
+        (doctorData.city != "" && doctorData.stateCode != "" && doctorData.zip != "") ? (doctoraddress.text = "\(doctorData.city), \(doctorData.stateCode), \(doctorData.zip)") : (doctoraddress.text = "Not Mentioned")
         
         videoImage.image = UIImage(named: "Video")
         moreImage.image = UIImage(named: "More")
