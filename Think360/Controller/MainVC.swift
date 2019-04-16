@@ -208,33 +208,32 @@ extension MainVC:UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        loadData()
+        loadData(indexPath:indexPath)
     }
 }
 
 
 extension MainVC{
-    fileprivate func loadData(){
+    fileprivate func loadData(indexPath:IndexPath){
         
-        guard let totalCount = dataService.returnTotalCount()?.totalCount else { return  }
-        
-        if dataService.getDoctorsDetails().count < totalCount{
-            pageNumber += 1
-            
-            let request = doctorsUrl.generateApiRequest(pageNumber: pageNumber)
-            guard let urlRequest = request else { return }
-            
-            doctorsApi.retriveJsonData(UrlRequest: urlRequest) { (finish) in
-                if finish{
-                    DispatchQueue.main.async {
-                        self.perform(#selector(self.loadTable), with: nil, afterDelay: 1.0)
+        if dataService.getDoctorsDetails().count - 1 == indexPath.row{
+             guard let totalCount = dataService.returnTotalCount()?.totalCount else { return  }
+            if dataService.getDoctorsDetails().count < totalCount{
+                pageNumber += 1
+                
+                let request = doctorsUrl.generateApiRequest(pageNumber: pageNumber)
+                guard let urlRequest = request else { return }
+                
+                doctorsApi.retriveJsonData(UrlRequest: urlRequest) { (finish) in
+                    if finish{
+                        DispatchQueue.main.async {
+                            self.perform(#selector(self.loadTable), with: nil, afterDelay: 1.0)
+                        }
                     }
                 }
+                
             }
-            
         }
-        
-        
     }
     
     @objc func loadTable(){

@@ -30,7 +30,7 @@ class DoctorCell:UITableViewCell{
         let profileimage = CustomImageView()
         profileimage.contentMode = .scaleAspectFill
         profileimage.backgroundColor = .gray
-        profileimage.layer.cornerRadius = (contentView.frame.width/3)/2
+        profileimage.layer.cornerRadius = (contentView.frame.width/3 - 10)/2
         profileimage.translatesAutoresizingMaskIntoConstraints = false
         profileimage.clipsToBounds = true
         return profileimage
@@ -111,8 +111,8 @@ class DoctorCell:UITableViewCell{
         NSLayoutConstraint.activate([
             profileImage.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 10),
             profileImage.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
-            profileImage.heightAnchor.constraint(equalToConstant: contentView.frame.width/3),
-            profileImage.widthAnchor.constraint(equalToConstant: contentView.frame.width/3)
+            profileImage.heightAnchor.constraint(equalToConstant: contentView.frame.width/3 - 10),
+            profileImage.widthAnchor.constraint(equalToConstant: contentView.frame.width/3 - 10)
             ])
         
         
@@ -121,7 +121,7 @@ class DoctorCell:UITableViewCell{
         
         let doctorDesc = stackViews(views: [doctorName,moreimageStack])
         doctorDesc.axis = .horizontal
-        
+        doctorDesc.spacing = 5
         cardView.addSubview(doctorDesc)
         
         NSLayoutConstraint.activate([
@@ -156,7 +156,7 @@ class DoctorCell:UITableViewCell{
         
         let mainStack = stackViews(views: [doctorDetails,imageStack])
         mainStack.axis = .horizontal
-        
+        mainStack.spacing = 9
         cardView.addSubview(mainStack)
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: doctorSpecialization.bottomAnchor, constant: 10),
