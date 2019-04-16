@@ -205,6 +205,7 @@ extension MainVC:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reusableCell, for: indexPath) as? DoctorCell else { return UITableViewCell() }
         cell.loadDatainCell(doctorData: dataService.getDoctorsDetails()[indexPath.row])
+//        loadData(indexPath: indexPath)
         return cell
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -226,6 +227,7 @@ extension MainVC{
                 
                 doctorsApi.retriveJsonData(UrlRequest: urlRequest) { (finish) in
                     if finish{
+                        //print("Pagination")
                         DispatchQueue.main.async {
                             self.perform(#selector(self.loadTable), with: nil, afterDelay: 1.0)
                         }
